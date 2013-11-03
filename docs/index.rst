@@ -89,11 +89,6 @@ API
    :members:
 
 
-Articles
---------
-
-* `Add yours <http://google.com>`_
-
 Feedback
 --------
 

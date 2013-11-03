@@ -47,6 +47,7 @@ Yupikey is designed to make YubiKey one-time password validation easy.
     
     yupikey.raise_for_status()
 
+
 Requirements
 ============
 
@@ -58,18 +59,6 @@ Installation
 ::
 
     $ pip install yupykey
-
-
-Usage
-=====
-
-Drop
-----
-
-::
-
-    $ yampress status
-
 
 
 License (MIT)

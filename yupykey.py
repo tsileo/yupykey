@@ -7,11 +7,11 @@ import time
 import math
 import random
 
-VERIFY_URLS = ["https://api.yubico.com/wsapi/2.0/verify",
-               "https://api2.yubico.com/wsapi/2.0/verify",
-               "https://api3.yubico.com/wsapi/2.0/verify",
-               "https://api4.yubico.com/wsapi/2.0/verify",
-               "https://api5.yubico.com/wsapi/2.0/verify",
+VERIFY_URLS = ['https://api.yubico.com/wsapi/2.0/verify',
+               'https://api2.yubico.com/wsapi/2.0/verify',
+               'https://api3.yubico.com/wsapi/2.0/verify',
+               'https://api4.yubico.com/wsapi/2.0/verify',
+               'https://api5.yubico.com/wsapi/2.0/verify',
                ]
 
 
@@ -47,14 +47,14 @@ class YuPyKey(object):
         """
         time.sleep(math.log(index+1))
         nonce = os.urandom(16).encode('hex')
-        payload = {"id": self.client_id, "nonce": nonce, "otp": otp}
+        payload = {'id': self.client_id, 'nonce': nonce, 'otp': otp}
         # ssl cert verification with requests
         r = requests.get(verify_url, params=payload, verify=True)
         r.raise_for_status()
         # parsing api result
-        res = dict(urlparse.parse_qsl(r.text.replace("\r\n", "&")))
-        if not res["status"] in ["BACKEND_ERROR", "NOT_ENOUGH_ANSWERS"]:
-            res_queue.put(res["status"])
+        res = dict(urlparse.parse_qsl(r.text.replace('\r\n', '&')))
+        if not res['status'] in ['BACKEND_ERROR', 'NOT_ENOUGH_ANSWERS']:
+            res_queue.put(res['status'])
 
     def verify_otp(self, otp):
         """ Run queries with multiprocessing.
@@ -67,7 +67,8 @@ class YuPyKey(object):
         res_queue = multiprocessing.Queue()
         random.shuffle(VERIFY_URLS)
         for index, api_url in enumerate(VERIFY_URLS):  # start 1 process for each urls
-            process = multiprocessing.Process(target=self._verify_otp, args=[index, api_url, res_queue, otp])
+            process = multiprocessing.Process(target=self._verify_otp,
+                                              args=[index, api_url, res_queue, otp])
             process.start()
             processs.append(process)
 
@@ -94,13 +95,13 @@ class YuPyKey(object):
         """
         if otp.startswith(public_id):
             self.res = self.verify_otp(otp)
-            if self.res == "OK":
+            if self.res == 'OK':
                 return True
         else:
-            self.res = "BAD_CLIENT"
+            self.res = 'BAD_CLIENT'
         return False
 
     def raise_for_status(self):
         res, self.res = self.res, None
-        if res and res != "OK":
+        if res and res != 'OK':
             raise Exception(res)
