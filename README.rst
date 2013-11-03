@@ -18,11 +18,11 @@ Here are the possible status:
 | Status       | Meaning                       |
 +==============+===============================+
 | OK           | Valid OTP                     |
-+------------+---------------------------------+
++--------------+-------------------------------+
 | BAD_OTP      | Invalid OTP                   |
-+------------+------------+--------------------+
++--------------+-------------------------------+
 | REPLAYED_OTP | OTP already verified          |
-+------------+------------+--------------------+
++--------------+-------------------------------+
 
 Yupykey provides one additional status, ``BAD_CLIENT``, when the public id does not match the provided one-time password.
 
@@ -30,12 +30,14 @@ Yupykey provides one additional status, ``BAD_CLIENT``, when the public id does 
 | Status       | Meaning                       |
 +==============+===============================+
 | BAD_CLIENT   | Public id and OTP don't match |           |
-+------------+---------------------------------+
++--------------+-------------------------------+
 
 Overview
 ========
 
 Yupikey is designed to make YubiKey one-time password validation easy.
+
+You can `get your API key here <https://upgrade.yubico.com/getapikey/>`_.
 
 ::
 
